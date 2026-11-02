@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: dentist-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: dentist
+      POSTGRES_PASSWORD: dentist
+      POSTGRES_DB: dentist
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dentist -d dentist"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  pgdata:

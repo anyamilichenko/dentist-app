@@ -1,0 +1,886 @@
+:root {
+  --primary: #0f766e;
+  --primary-hover: #115e59;
+  --primary-soft: #e6f4f1;
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --surface-muted: #f8f9fb;
+  --border: #e2e6ea;
+  --border-strong: #cdd3da;
+  --text: #1c2430;
+  --muted: #6b7482;
+  --danger: #b42318;
+  --danger-soft: #fdecea;
+  --now: #e11d48;
+  --radius: 10px;
+  --header-h: 56px;
+
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: var(--primary);
+}
+
+h1 {
+  font-size: 22px;
+  margin: 0;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.hint {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ---------- шапка ---------- */
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 20px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 17px;
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  gap: 4px;
+}
+
+.nav a {
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: var(--muted);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.nav a:hover {
+  color: var(--text);
+  background: var(--surface-muted);
+}
+
+.nav a.active {
+  color: var(--primary);
+  background: var(--primary-soft);
+}
+
+/* ---------- кнопки ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: var(--surface);
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: var(--surface-muted);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.btn-primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-danger {
+  color: var(--danger);
+  border-color: #f1c6c1;
+}
+
+.btn-danger:hover {
+  background: var(--danger-soft);
+}
+
+.btn-ghost {
+  border-color: transparent;
+  background: transparent;
+}
+
+.btn-sm {
+  height: 32px;
+  padding: 0 10px;
+  font-size: 14px;
+}
+
+.btn.active {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.icon-btn {
+  width: 38px;
+  padding: 0;
+  font-size: 18px;
+}
+
+.btn-group {
+  display: flex;
+  gap: 6px;
+}
+
+.link-btn {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--primary);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* ---------- формы ---------- */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.section-title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.section-note {
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.when-grid {
+  grid-template-columns: 1.4fr 1fr 1fr;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.field-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.input {
+  width: 100%;
+  height: 40px;
+  padding: 0 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: #fff;
+  /* 16px, чтобы iPhone не увеличивал страницу при фокусе */
+  font-size: 16px;
+}
+
+textarea.input {
+  height: auto;
+  min-height: 64px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+.input:focus {
+  outline: 3px solid rgb(15 118 110 / 0.18);
+  border-color: var(--primary);
+}
+
+.form-error {
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--danger-soft);
+  color: var(--danger);
+  font-size: 14px;
+}
+
+.quick-picks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* ---------- выбор пациента ---------- */
+
+.picker-results {
+  margin-top: 6px;
+  max-height: 240px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.picker-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.picker-item:last-child {
+  border-bottom: 0;
+}
+
+.picker-item:hover {
+  background: var(--surface-muted);
+}
+
+.picker-new {
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.picker-empty {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  background: var(--primary-soft);
+}
+
+.chip-text {
+  min-width: 0;
+}
+
+.chip-title {
+  font-weight: 600;
+}
+
+.chip-sub {
+  font-size: 14px;
+}
+
+.new-patient {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  border: 1px dashed var(--primary);
+  border-radius: 8px;
+}
+
+.new-patient-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+
+/* ---------- модальное окно ---------- */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 6vh 16px;
+  overflow-y: auto;
+  background: rgb(15 23 42 / 0.45);
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 560px;
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: 0 20px 50px rgb(0 0 0 / 0.2);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 12px 12px 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 16px 18px;
+}
+
+.modal-footer {
+  display: flex;
+  gap: 8px;
+  padding: 12px 18px;
+  border-top: 1px solid var(--border);
+}
+
+.spacer {
+  flex: 1;
+}
+
+/* ---------- календарь ---------- */
+
+.calendar-page {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: calc(100dvh - var(--header-h));
+  padding: 12px 20px 16px;
+}
+
+.calendar-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.calendar-title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.calendar-title::first-letter {
+  text-transform: uppercase;
+}
+
+.sync-status {
+  margin-left: auto;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.sync-status.error {
+  color: var(--danger);
+  font-weight: 500;
+}
+
+.calendar {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.calendar-head,
+.calendar-body {
+  display: grid;
+  grid-template-columns: 52px repeat(var(--days), minmax(0, 1fr));
+}
+
+.calendar-head {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.calendar-day-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 4px;
+  border-left: 1px solid var(--border);
+}
+
+.calendar-day-title .weekday {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.calendar-day-title .daynum {
+  min-width: 30px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 17px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.calendar-day-title.today .daynum {
+  background: var(--primary);
+  color: #fff;
+}
+
+.calendar-hour {
+  position: relative;
+  padding-right: 6px;
+  text-align: right;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.calendar-hour span {
+  position: relative;
+  top: -8px;
+}
+
+.calendar-hour:first-child span {
+  top: 2px;
+}
+
+.calendar-col {
+  position: relative;
+  border-left: 1px solid var(--border);
+}
+
+.calendar-col.today {
+  background: #fbfefd;
+}
+
+.slot {
+  display: block;
+  width: 100%;
+  padding: 0 6px;
+  border: 0;
+  border-top: 1px dashed #edf0f3;
+  background: transparent;
+  text-align: left;
+  font-size: 12px;
+  color: transparent;
+  cursor: pointer;
+}
+
+.slot.hour-start {
+  border-top: 1px solid var(--border);
+}
+
+.slot.past {
+  background: var(--surface-muted);
+}
+
+.slot:hover,
+.slot:focus-visible {
+  background: var(--primary-soft);
+  color: var(--primary);
+  outline: none;
+}
+
+.appt {
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  overflow: hidden;
+  padding: 3px 6px;
+  border: 0;
+  border-left: 3px solid;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
+  font-size: 12px;
+  line-height: 1.25;
+  text-align: left;
+  cursor: pointer;
+}
+
+.appt:hover {
+  filter: brightness(0.97);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.15);
+}
+
+.appt span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.appt-time {
+  font-weight: 600;
+}
+
+.appt-name {
+  font-weight: 500;
+}
+
+.appt-service {
+  color: rgb(0 0 0 / 0.6);
+}
+
+.appt.compact {
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  padding-block: 0;
+}
+
+.appt.compact .appt-service {
+  display: none;
+}
+
+.now-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  height: 2px;
+  background: var(--now);
+  pointer-events: none;
+}
+
+.now-line::before {
+  content: "";
+  position: absolute;
+  left: -5px;
+  top: -4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--now);
+}
+
+.week-strip {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.week-strip-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.week-strip-day .weekday {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.week-strip-day .daynum {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.week-strip-day .count {
+  min-height: 15px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.week-strip-day.today .daynum {
+  color: var(--primary);
+}
+
+.week-strip-day.selected {
+  border-color: var(--primary);
+  background: var(--primary);
+}
+
+.week-strip-day.selected * {
+  color: #fff;
+}
+
+/* ---------- справочники ---------- */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px 20px 32px;
+}
+
+.page-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.list {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.list-row {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.list-row:last-child {
+  border-bottom: 0;
+}
+
+.list-row:hover {
+  background: var(--surface-muted);
+}
+
+.service-row {
+  grid-template-columns: 1fr 110px 110px;
+}
+
+.list-main {
+  font-weight: 500;
+}
+
+.list-side {
+  color: var(--muted);
+}
+
+.list-side.price {
+  text-align: right;
+}
+
+.list-empty {
+  padding: 32px 16px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.call-link {
+  align-self: flex-start;
+}
+
+.history {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.history:empty {
+  display: none;
+}
+
+.history li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.history li:last-child {
+  border-bottom: 0;
+}
+
+.history li.upcoming {
+  background: var(--primary-soft);
+  font-weight: 500;
+}
+
+/* ---------- телефон ---------- */
+
+@media (max-width: 720px) {
+  .app-header {
+    gap: 12px;
+    padding: 0 12px;
+  }
+
+  .brand-name {
+    display: none;
+  }
+
+  .nav {
+    flex: 1;
+    justify-content: space-between;
+  }
+
+  .nav a {
+    padding: 8px 10px;
+  }
+
+  .calendar-page {
+    gap: 8px;
+    padding: 8px 8px 0;
+  }
+
+  .calendar-toolbar {
+    gap: 8px;
+  }
+
+  .calendar-title {
+    font-size: 16px;
+  }
+
+  .calendar {
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+
+  /* на сенсорном экране нет наведения — подсказываем, что слот нажимается */
+  .slot {
+    color: #c3cad2;
+  }
+
+  .page {
+    padding: 12px 12px 24px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .when-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .when-grid > :first-child {
+    grid-column: span 2;
+  }
+
+  .list-row {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .service-row {
+    grid-template-columns: 1fr auto;
+  }
+
+  .service-row .list-main {
+    grid-column: span 2;
+  }
+
+  .list-side.price {
+    text-align: right;
+  }
+
+  .modal-backdrop {
+    align-items: stretch;
+    padding: 0;
+  }
+
+  .modal {
+    max-width: none;
+    min-height: 100dvh;
+    border-radius: 0;
+  }
+
+  .modal-body {
+    flex: 1;
+  }
+
+  .modal-footer {
+    position: sticky;
+    bottom: 0;
+    background: var(--surface);
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  }
+}

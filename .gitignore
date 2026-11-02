@@ -1,0 +1,12 @@
+/bin/
+*.exe
+.env
+*.log
+
+# фронтенд
+node_modules/
+/frontend/dist/
+
+# локальные настройки IDE и Claude
+.idea/
+.claude/
