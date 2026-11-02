@@ -107,6 +107,20 @@ h1 {
   background: var(--primary-soft);
 }
 
+.live-dot {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  margin-left: auto;
+  border-radius: 50%;
+  background: #c3cad2;
+}
+
+.live-dot.on {
+  background: #16a34a;
+  box-shadow: 0 0 0 3px rgb(22 163 74 / 0.18);
+}
+
 /* ---------- кнопки ---------- */
 
 .btn {

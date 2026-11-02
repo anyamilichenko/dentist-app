@@ -13,15 +13,17 @@ import (
 )
 
 type Handler struct {
-	store *store.Store
-	log   *slog.Logger
+	store  *store.Store
+	broker *Broker
+	log    *slog.Logger
 }
 
-func NewRouter(st *store.Store, log *slog.Logger) http.Handler {
-	h := &Handler{store: st, log: log}
+func NewRouter(st *store.Store, broker *Broker, log *slog.Logger) http.Handler {
+	h := &Handler{store: st, broker: broker, log: log}
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("GET /api/health", h.health)
+	mux.HandleFunc("GET /api/events", h.events)
 
 	mux.HandleFunc("GET /api/patients", h.listPatients)
 	mux.HandleFunc("POST /api/patients", h.createPatient)
@@ -41,7 +43,7 @@ func NewRouter(st *store.Store, log *slog.Logger) http.Handler {
 	mux.HandleFunc("PUT /api/appointments/{id}", h.updateAppointment)
 	mux.HandleFunc("DELETE /api/appointments/{id}", h.deleteAppointment)
 
-	return withLogging(log, mux)
+	return withLogging(log, notifyChanges(broker, mux))
 }
 
 func (h *Handler) health(w http.ResponseWriter, r *http.Request) {
@@ -115,6 +117,11 @@ type statusRecorder struct {
 func (r *statusRecorder) WriteHeader(code int) {
 	r.status = code
 	r.ResponseWriter.WriteHeader(code)
+}
+
+// Unwrap нужен http.ResponseController, чтобы добраться до Flush исходного соединения (для SSE).
+func (r *statusRecorder) Unwrap() http.ResponseWriter {
+	return r.ResponseWriter
 }
 
 func withLogging(log *slog.Logger, next http.Handler) http.Handler {

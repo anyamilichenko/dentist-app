@@ -12,6 +12,7 @@ import (
 	"syscall"
 	"time"
 
+	"dentist-app/frontend"
 	"dentist-app/internal/api"
 	"dentist-app/internal/config"
 	"dentist-app/internal/db"
@@ -48,10 +49,17 @@ func run(log *slog.Logger) error {
 		return fmt.Errorf("listen on %s (port already in use? stop the other server or set HTTP_ADDR): %w", cfg.HTTPAddr, err)
 	}
 
+	broker := api.NewBroker()
+	mux := http.NewServeMux()
+	mux.Handle("/api/", api.NewRouter(store.New(pool), broker, log))
+	mux.Handle("/", frontend.Handler())
+
 	srv := &http.Server{
-		Handler:           api.NewRouter(store.New(pool), log),
+		Handler:           mux,
 		ReadHeaderTimeout: 10 * time.Second,
 	}
+	// Иначе открытые потоки /api/events не дали бы серверу остановиться.
+	srv.RegisterOnShutdown(broker.Close)
 
 	errCh := make(chan error, 1)
 	go func() { errCh <- srv.Serve(ln) }()
