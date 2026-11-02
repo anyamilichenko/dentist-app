@@ -5,6 +5,7 @@ import { AppointmentDialog, type AppointmentDialogMode } from "../components/App
 import { CalendarGrid } from "../components/CalendarGrid";
 import { cls } from "../components/ui";
 import { useMediaQuery } from "../hooks";
+import { useLiveConnected } from "../live";
 import {
   addDays,
   formatDateRange,
@@ -24,12 +25,14 @@ export function CalendarPage() {
   const weekStart = startOfWeek(anchor);
   const weekDays = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
 
+  const live = useLiveConnected();
   const appointments = useQuery({
     queryKey: ["appointments", weekStart.toISOString()],
     queryFn: () => api.listAppointments(weekStart, addDays(weekStart, 7)),
     placeholderData: keepPreviousData,
-    // Подтягиваем изменения, сделанные на других устройствах.
-    refetchInterval: 15_000,
+    // Изменения с других устройств приходят через поток событий (live.ts);
+    // если он оборвался, подстраховываемся опросом.
+    refetchInterval: live ? false : 15_000,
   });
   const list = appointments.data ?? [];
 

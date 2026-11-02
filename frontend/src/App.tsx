@@ -1,10 +1,17 @@
+import { useEffect } from "react";
 import { Link, Navigate, NavLink, Route, Routes } from "react-router";
-import { ToothIcon } from "./components/ui";
+import { useQueryClient } from "@tanstack/react-query";
+import { cls, ToothIcon } from "./components/ui";
+import { connectLiveUpdates, useLiveConnected } from "./live";
 import { CalendarPage } from "./pages/CalendarPage";
 import { PatientsPage } from "./pages/PatientsPage";
 import { ServicesPage } from "./pages/ServicesPage";
 
 export function App() {
+  const queryClient = useQueryClient();
+  useEffect(() => connectLiveUpdates(queryClient), [queryClient]);
+  const live = useLiveConnected();
+
   return (
     <>
       <header className="app-header">
@@ -19,6 +26,12 @@ export function App() {
           <NavLink to="/patients">Пациенты</NavLink>
           <NavLink to="/services">Услуги</NavLink>
         </nav>
+        <span
+          className={cls("live-dot", live && "on")}
+          role="status"
+          title={live ? "На связи: изменения с других устройств приходят сразу" : "Нет связи с сервером"}
+          aria-label={live ? "На связи" : "Нет связи с сервером"}
+        />
       </header>
       <Routes>
         <Route path="/" element={<CalendarPage />} />
